@@ -1,0 +1,19 @@
+name: ui CI
+
+on:
+  push:
+    branches: [ master ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v1.1.0
+      with:
+        username: ${{secrets.dockerUsername}}
+        password: ${{secrets.dockerPassword}}
+        repository: ${{github.repository}}
+        tags: 'latest'
+        tag_with_ref: true
+        tag_with_sha: true
+        push: true
