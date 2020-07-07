@@ -12,11 +12,13 @@ jobs:
       with:
         repository: ${{github.repository_owner}}/grpc-poc-common
         path: common
+        clean: true
 
     - name: Checkout current repo
       uses: actions/checkout@v2.3.1
       with:
         path: current
+        clean: false
       
     - name: Build and push Docker image
       uses: docker/build-push-action@v1.1.0
