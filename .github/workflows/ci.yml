@@ -20,13 +20,13 @@ jobs:
         tag_with_ref: true
         push: true
         
-    - name: Kubernetes set KubeSail context
+    - name: Kubernetes set kube context
       uses: Azure/k8s-set-context@v1
       with:
         method: kubeconfig
         kubeconfig: ${{secrets.kubeConfig}}
     
-    - name: Deploy to KubeSail cluster
+    - name: Deploy to kube cluster
       uses: Azure/k8s-deploy@v1
       with:
         namespace: alinflorin
