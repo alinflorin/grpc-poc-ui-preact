@@ -1,0 +1,14 @@
+name: grpc-poc-ui-preact
+image: okteto/node:12
+workdir: /src
+command: ["npm", "run", "install-and-start"]
+remote: 50001
+forward:
+  - 8080:8080
+persistentVolume:
+  enabled: true
+  size: 512Mi
+volumes:
+  - /root/.npm
+  - /root/.dotnet
+  - /root/.nuget
