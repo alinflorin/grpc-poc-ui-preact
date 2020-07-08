@@ -48,10 +48,10 @@ spec:
           resources:
             requests:
               memory: "64Mi"
-              cpu: "10m"
+              cpu: "4m"
             limits:
               memory: "64Mi"
-              cpu: "10m"
+              cpu: "4m"
       volumes:
         - name: grpc-poc-ui-preact
           configMap:
