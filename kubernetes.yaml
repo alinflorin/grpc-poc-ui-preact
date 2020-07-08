@@ -45,13 +45,7 @@ spec:
             - name: grpc-poc-ui-preact
               mountPath: /etc/Caddyfile
               subPath: Caddyfile
-          resources:
-            requests:
-              memory: "64Mi"
-              cpu: "4m"
-            limits:
-              memory: "128Mi"
-              cpu: "4m"
+
       volumes:
         - name: grpc-poc-ui-preact
           configMap:
