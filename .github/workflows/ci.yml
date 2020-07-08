@@ -16,9 +16,7 @@ jobs:
         username: ${{secrets.dockerUsername}}
         password: ${{secrets.dockerPassword}}
         repository: ${{github.repository}}
-        tags: |
-          latest
-          ${{github.sha}}
+        tags: 'latest,${{github.sha}}'
         tag_with_ref: true
         push: true
         
