@@ -50,8 +50,8 @@ spec:
               memory: "64Mi"
               cpu: "4m"
             limits:
-              memory: "64Mi"
-              cpu: "4m"
+              memory: "128Mi"
+              cpu: 1
       volumes:
         - name: grpc-poc-ui-preact
           configMap:
