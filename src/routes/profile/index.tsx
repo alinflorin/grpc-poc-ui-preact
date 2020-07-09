@@ -1,6 +1,8 @@
 import { FunctionalComponent, h } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import * as style from "./style.css";
+import { AuthClient } from '../../grpc/AuthServiceClientPb';
+import { LoginRequest } from '../../grpc/auth_pb';
 
 interface Props {
     user: string;
@@ -24,6 +26,15 @@ const Profile: FunctionalComponent<Props> = (props: Props) => {
     // update the current time
     const increment = () => {
         setCount(count + 1);
+        const authServiceClient = new AuthClient('./services/auth');
+        const loginRequest = new LoginRequest();
+        loginRequest.setUsername('admin');
+        loginRequest.setPassword('grpc-poc');
+        authServiceClient.login(loginRequest, null).then(r => {
+            console.log(r);
+        }).catch(e => {
+            console.error(e);
+        });        
     };
 
     return (
