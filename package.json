@@ -9,7 +9,8 @@
     "dev": "preact watch",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "test": "jest ./tests",
-    "install-and-start": "npm i && npm run dev"
+    "install-and-start": "npm i && npm run dev",
+    "protoc": "protoc -I=./ auth.proto weather.proto --js_out=import_style=typescript:./src/grpc --grpc-web_out=import_style=typescript,mode=grpcweb:./src/grpc"
   },
   "lint-staged": {
     "*.{css,md,scss}": "prettier --write",
@@ -19,6 +20,7 @@
     "build/*"
   ],
   "dependencies": {
+    "grpc-web": "^1.2.0",
     "preact": "^10.3.1",
     "preact-jsx-chai": "^3.0.0",
     "preact-markup": "^2.0.0",
