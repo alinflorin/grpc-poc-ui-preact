@@ -26,7 +26,7 @@ const Profile: FunctionalComponent<Props> = (props: Props) => {
     // update the current time
     const increment = () => {
         setCount(count + 1);
-        const authServiceClient = new AuthClient('./services/auth');
+        const authServiceClient = new AuthClient('/services/auth');
         const loginRequest = new LoginRequest();
         loginRequest.setUsername('admin');
         loginRequest.setPassword('grpc-poc');
