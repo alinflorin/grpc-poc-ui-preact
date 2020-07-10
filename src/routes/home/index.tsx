@@ -67,7 +67,7 @@ class Home extends Component {
         const { value } = e.target;
         this.setState({ ...this.state, pass: value });
     };
-
+    
     render(_, { user, pass, loggedInUser, error, weather }) {
         return (
             <div class={style.home}>
