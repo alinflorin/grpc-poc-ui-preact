@@ -27,14 +27,14 @@ export default {
             "index"
         );
         if (config.devServer != null) {
-            config.devServer.proxy = [
-                {
-                    path: "/services/**",
-                    target: "http://grpc-poc-envoy:8080",
-                    changeOrigin: true,
-                    changeHost: true
-                }
-            ];
+            // config.devServer.proxy = [
+            //     {
+            //         path: "/services/**",
+            //         target: "http://grpc-poc-envoy:8080",
+            //         changeOrigin: true,
+            //         changeHost: true
+            //     }
+            // ];
         }
     }
 };
