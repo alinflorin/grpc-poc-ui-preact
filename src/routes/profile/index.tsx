@@ -35,21 +35,20 @@ const Profile: FunctionalComponent<Props> = (props: Props) => {
         loginRequest.setPassword('grpc-poc');
         authServiceClient.login(loginRequest, null).then(r => {
             console.log(r);
-            setInfo(s => s + '<br />' + JSON.stringify(r.toObject()));
         }).catch(e => {
             console.error(e);
         });      
         
-        const weatherServiceClient = new WeatherClient('/services/weather');
-        const wRequest = new GetWeatherRequest();
-        wRequest.setAddress('Pitesti');
-        wRequest.setUsemetric(true);
-        weatherServiceClient.getWeather(wRequest, null).then(r => {
-            console.log(r);
-            setInfoWeather(s => s + '<br />' + JSON.stringify(r.toObject()));
-        }).catch(e => {
-            console.error(e);
-        });    
+        // const weatherServiceClient = new WeatherClient('/services/weather');
+        // const wRequest = new GetWeatherRequest();
+        // wRequest.setAddress('Pitesti');
+        // wRequest.setUsemetric(true);
+        // weatherServiceClient.getWeather(wRequest, null).then(r => {
+        //     console.log(r);
+        //     setInfoWeather(s => s + '<br />' + JSON.stringify(r.toObject()));
+        // }).catch(e => {
+        //     console.error(e);
+        // });    
     };
 
     return (
