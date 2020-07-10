@@ -3,6 +3,8 @@ import { useEffect, useState } from "preact/hooks";
 import * as style from "./style.css";
 import { AuthClient } from '../../grpc/AuthServiceClientPb';
 import { LoginRequest } from '../../grpc/auth_pb';
+import { WeatherClient } from '../../grpc/WeatherServiceClientPb';
+import { GetWeatherRequest } from '../../grpc/weather_pb';
 
 interface Props {
     user: string;
@@ -34,7 +36,17 @@ const Profile: FunctionalComponent<Props> = (props: Props) => {
             console.log(r);
         }).catch(e => {
             console.error(e);
-        });        
+        });      
+        
+        const weatherServiceClient = new WeatherClient('/services/weather');
+        const wRequest = new GetWeatherRequest();
+        wRequest.setAddress('Pitesti');
+        wRequest.setUsemetric(true);
+        weatherServiceClient.getWeather(wRequest, null).then(r => {
+            console.log(r);
+        }).catch(e => {
+            console.error(e);
+        });    
     };
 
     return (
