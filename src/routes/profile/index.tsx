@@ -14,7 +14,8 @@ const Profile: FunctionalComponent<Props> = (props: Props) => {
     const { user } = props;
     const [time, setTime] = useState<number>(Date.now());
     const [count, setCount] = useState<number>(0);
-
+    const [info, setInfo] = useState<string>('');
+    const [infoWeather, setInfoWeather] = useState<string>('');
     // gets called when this route is navigated to
     useEffect(() => {
         const timer = window.setInterval(() => setTime(Date.now()), 1000);
@@ -34,6 +35,7 @@ const Profile: FunctionalComponent<Props> = (props: Props) => {
         loginRequest.setPassword('grpc-poc');
         authServiceClient.login(loginRequest, null).then(r => {
             console.log(r);
+            setInfo(s => s + '<br />' + JSON.stringify(r.toObject()));
         }).catch(e => {
             console.error(e);
         });      
@@ -44,6 +46,7 @@ const Profile: FunctionalComponent<Props> = (props: Props) => {
         wRequest.setUsemetric(true);
         weatherServiceClient.getWeather(wRequest, null).then(r => {
             console.log(r);
+            setInfoWeather(s => s + '<br />' + JSON.stringify(r.toObject()));
         }).catch(e => {
             console.error(e);
         });    
@@ -55,7 +58,8 @@ const Profile: FunctionalComponent<Props> = (props: Props) => {
             <p>This is the user profile for a user named {user}.</p>
 
             <div>Current time: {new Date(time).toLocaleString()}</div>
-
+            <div>{info}</div>
+            <div>{infoWeather}</div>
             <p>
                 <button onClick={increment}>Click Me</button> Clicked {count}{" "}
                 times.
