@@ -104,11 +104,11 @@ class Home extends Component {
                         <button class="btn btn-lg btn-primary btn-success" type="submit">Login</button>
                     </form>
                 ) : (
-                    <button onClick={this.logout}>Logout</button>
+                    <button class="btn btn-sm btn-danger" onClick={this.logout}>Logout</button>
                 )}
-                <br />
+                <br /> <br />
                 {loggedInUser != null ? (
-                    <button onClick={this.getWeather}>Get Weather</button>
+                    <button class="btn btn-lg btn-success" onClick={this.getWeather}>Get Weather</button>
                 ) : (
                     <div></div>
                 )}
