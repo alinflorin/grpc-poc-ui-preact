@@ -86,6 +86,7 @@ class Home extends Component {
                             name="user"
                             id="user"
                             type="text"
+                            class="form-control input input-lg"
                             value={user}
                             onInput={this.onUserInput}
                         />
@@ -95,11 +96,12 @@ class Home extends Component {
                             name="pass"
                             id="pass"
                             type="password"
+                            class="form-control input input-lg"
                             value={pass}
                             onInput={this.onPassInput}
                         />
                         <br />
-                        <button type="submit">Login</button>
+                        <button class="btn btn-lg btn-primary btn-success" type="submit">Login</button>
                     </form>
                 ) : (
                     <button onClick={this.logout}>Logout</button>

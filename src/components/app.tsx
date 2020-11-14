@@ -17,7 +17,7 @@ const App: FunctionalComponent = () => {
     };
 
     return (
-        <div id="app">
+        <div id="app" class="container">
             <Header />
             <Router onChange={handleRoute}>
                 <Route path="/" component={Home} />

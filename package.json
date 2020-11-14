@@ -20,6 +20,7 @@
     "build/*"
   ],
   "dependencies": {
+    "bootstrap": "^5.0.0-alpha3",
     "google-protobuf": "^3.12.2",
     "grpc-web": "^1.2.0",
     "preact": "^10.3.1",
