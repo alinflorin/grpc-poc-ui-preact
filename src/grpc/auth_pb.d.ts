@@ -86,3 +86,39 @@ export namespace User {
   }
 }
 
+export class Notification extends jspb.Message {
+  getTitle(): string;
+  setTitle(value: string): Notification;
+
+  getMessage(): string;
+  setMessage(value: string): Notification;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): Notification.AsObject;
+  static toObject(includeInstance: boolean, msg: Notification): Notification.AsObject;
+  static serializeBinaryToWriter(message: Notification, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): Notification;
+  static deserializeBinaryFromReader(message: Notification, reader: jspb.BinaryReader): Notification;
+}
+
+export namespace Notification {
+  export type AsObject = {
+    title: string,
+    message: string,
+  }
+}
+
+export class SubscribeToNotificationsRequest extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): SubscribeToNotificationsRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: SubscribeToNotificationsRequest): SubscribeToNotificationsRequest.AsObject;
+  static serializeBinaryToWriter(message: SubscribeToNotificationsRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): SubscribeToNotificationsRequest;
+  static deserializeBinaryFromReader(message: SubscribeToNotificationsRequest, reader: jspb.BinaryReader): SubscribeToNotificationsRequest;
+}
+
+export namespace SubscribeToNotificationsRequest {
+  export type AsObject = {
+  }
+}
+

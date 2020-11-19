@@ -15,7 +15,9 @@ import * as grpcWeb from 'grpc-web';
 
 import {
   LoginReply,
-  LoginRequest} from './auth_pb';
+  LoginRequest,
+  Notification,
+  SubscribeToNotificationsRequest} from './auth_pb';
 
 export class AuthClient {
   client_: grpcWeb.AbstractClientBase;
@@ -74,6 +76,25 @@ export class AuthClient {
     request,
     metadata || {},
     this.methodInfoLogin);
+  }
+
+  methodInfoSubscribeToNotifications = new grpcWeb.AbstractClientBase.MethodInfo(
+    Notification,
+    (request: SubscribeToNotificationsRequest) => {
+      return request.serializeBinary();
+    },
+    Notification.deserializeBinary
+  );
+
+  subscribeToNotifications(
+    request: SubscribeToNotificationsRequest,
+    metadata?: grpcWeb.Metadata) {
+    return this.client_.serverStreaming(
+      this.hostname_ +
+        '/auth.Auth/SubscribeToNotifications',
+      request,
+      metadata || {},
+      this.methodInfoSubscribeToNotifications);
   }
 
 }
