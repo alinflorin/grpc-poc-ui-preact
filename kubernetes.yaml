@@ -4,7 +4,7 @@ metadata:
   name: grpc-poc-ui-preact
 data:
   Caddyfile: |
-    :80
+    :8080
     root /srv
     gzip
     header / {
@@ -40,7 +40,7 @@ spec:
           image: alinflorin/grpc-poc-ui-preact:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 80
+            - containerPort: 8080
           volumeMounts:
             - name: grpc-poc-ui-preact
               mountPath: /etc/Caddyfile
@@ -61,6 +61,6 @@ spec:
   selector:
     app: grpc-poc-ui-preact
   ports:
-    - port: 80
-      targetPort: 80
+    - port: 8080
+      targetPort: 8080
       name: http
