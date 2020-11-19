@@ -1,6 +1,6 @@
 import { h, Component } from "preact";
 import * as style from "./style.css";
-import { LoginRequest, User } from "../../grpc/auth_pb";
+import { LoginRequest, SubscribeToNotificationsRequest, User } from "../../grpc/auth_pb";
 import { AuthClient } from "../../grpc/AuthServiceClientPb";
 import { GetWeatherRequest } from '../../grpc/weather_pb';
 import { WeatherClient } from '../../grpc/WeatherServiceClientPb';
@@ -39,6 +39,14 @@ class Home extends Component {
                         loggedInUser: r.getUser(),
                         error: ""
                     });
+
+                    const nReq = new SubscribeToNotificationsRequest();
+                    this.authClient.subscribeToNotifications(nReq).on('data', n => {
+                        console.log(n);
+                    }).on('error', err => {
+                        console.error(err);
+                    });
+
                     return;
                 }
                 this.setState({
