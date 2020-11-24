@@ -1,17 +1,22 @@
 import { h, Component } from "preact";
 import * as style from "./style.css";
-import { LoginRequest, SubscribeToNotificationsRequest, User } from "../../grpc/auth_pb";
+import { LoginRequest, SubscribeToNotificationsRequest, User , Notification} from "../../grpc/auth_pb";
 import { AuthClient } from "../../grpc/AuthServiceClientPb";
 import { GetWeatherRequest } from '../../grpc/weather_pb';
 import { WeatherClient } from '../../grpc/WeatherServiceClientPb';
+import { ClientReadableStream } from "grpc-web";
 
 class Home extends Component {
     state = { user: "", pass: "", loggedInUser: null, error: "", weather: "", notif: null };
     authClient = new AuthClient("/services/auth");
     weatherClient = new WeatherClient("/services/weather");
+    streamSubscription: any = null;
 
     logout = () => {
-        this.setState({ ...this.state, error: "", loggedInUser: null, weather: "" });
+        this.setState({ ...this.state, error: "", loggedInUser: null, weather: "", notif: null });
+        if (this.streamSubscription != null) {
+            this.streamSubscription.cancel();
+        }
     };
 
     getWeather = () => {
@@ -41,7 +46,7 @@ class Home extends Component {
                     });
 
                     const nReq = new SubscribeToNotificationsRequest();
-                    this.authClient.subscribeToNotifications(nReq).on('data', n => {
+                    this.streamSubscription = this.authClient.subscribeToNotifications(nReq).on('data', n => {
                         this.setState({ ...this.state, notif: 'New notification: ' + n.getTitle() + ' - ' + n.getMessage() });
                         setTimeout(() => {
                             this.setState({ ...this.state, notif: null });
