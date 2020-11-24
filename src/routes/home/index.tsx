@@ -6,7 +6,7 @@ import { GetWeatherRequest } from '../../grpc/weather_pb';
 import { WeatherClient } from '../../grpc/WeatherServiceClientPb';
 
 class Home extends Component {
-    state = { user: "", pass: "", loggedInUser: null, error: "", weather: "" };
+    state = { user: "", pass: "", loggedInUser: null, error: "", weather: "", notif: null };
     authClient = new AuthClient("/services/auth");
     weatherClient = new WeatherClient("/services/weather");
 
@@ -19,9 +19,9 @@ class Home extends Component {
         getWeatherRequest.setUsemetric(true);
         getWeatherRequest.setAddress("Something");
         this.weatherClient.getWeather(getWeatherRequest, null).then(r => {
-            this.setState({...this.state, weather: JSON.stringify(r.toObject())});
+            this.setState({ ...this.state, weather: JSON.stringify(r.toObject()) });
         }).catch(e => {
-            this.setState({...this.state, weather: JSON.stringify(e)});
+            this.setState({ ...this.state, weather: JSON.stringify(e) });
         });
     };
 
@@ -42,7 +42,10 @@ class Home extends Component {
 
                     const nReq = new SubscribeToNotificationsRequest();
                     this.authClient.subscribeToNotifications(nReq).on('data', n => {
-                        console.log(n);
+                        this.setState({ ...this.state, notif: 'New notification: ' + n.getTitle() + ' - ' + n.getMessage() });
+                        setTimeout(() => {
+                            this.setState({ ...this.state, notif: null });
+                        }, 2500);
                     }).on('error', err => {
                         console.error(err);
                     });
@@ -75,17 +78,18 @@ class Home extends Component {
         const { value } = e.target;
         this.setState({ ...this.state, pass: value });
     };
-    
+
     render(_, { user, pass, loggedInUser, error, weather }) {
         return (
             <div class={style.home}>
                 <h1>gRPC PoC</h1>
                 <p style="color: red">{error}</p>
+                {loggedInUser != null && this.state.notif ? <div class={style.notif}>{this.state.notif}asd</div> : null}
                 <p>
                     {loggedInUser == null
                         ? "Not logged in"
                         : "Logged in as " +
-                          (loggedInUser as User).getUsername()}
+                        (loggedInUser as User).getUsername()}
                 </p>
                 {loggedInUser == null ? (
                     <form onSubmit={this.onSubmit}>
@@ -112,14 +116,14 @@ class Home extends Component {
                         <button class="btn btn-lg btn-primary btn-success" type="submit">Login</button>
                     </form>
                 ) : (
-                    <button class="btn btn-sm btn-danger" onClick={this.logout}>Logout</button>
-                )}
+                        <button class="btn btn-sm btn-danger" onClick={this.logout}>Logout</button>
+                    )}
                 <br /> <br />
                 {loggedInUser != null ? (
                     <button class="btn btn-lg btn-success" onClick={this.getWeather}>Get Weather</button>
                 ) : (
-                    <div></div>
-                )}
+                        <div></div>
+                    )}
                 <br />
                 <p>{weather}</p>
             </div>
