@@ -10,7 +10,7 @@
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "test": "jest ./tests",
     "install-and-start": "npm i && npm run dev",
-    "protoc": "protoc -I=./src/proto auth.proto weather.proto --js_out=import_style=commonjs:./src/grpc --grpc-web_out=import_style=typescript,mode=grpcweb:./src/grpc"
+    "protoc": "protoc -I=./src/proto auth.proto weather.proto --js_out=import_style=commonjs:./src/grpc --grpc-web_out=import_style=typescript,mode=grpcwebtext:./src/grpc"
   },
   "lint-staged": {
     "*.{css,md,scss}": "prettier --write",
