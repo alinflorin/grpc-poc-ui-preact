@@ -24,7 +24,7 @@ class Home extends Component {
         getWeatherRequest.setUsemetric(true);
         getWeatherRequest.setAddress("Something");
         this.weatherClient.getWeather(getWeatherRequest, null).then(r => {
-            this.setState({ ...this.state, weather: JSON.stringify(r.toObject()) });
+            this.setState({ ...this.state, weather: `Current Temperature: ${r.getCurrenttemp()}; Wind Speed: ${r.getCurrentwindspeed()}` });
         }).catch(e => {
             this.setState({ ...this.state, weather: JSON.stringify(e) });
         });
@@ -84,12 +84,11 @@ class Home extends Component {
         this.setState({ ...this.state, pass: value });
     };
 
-    render(_, { user, pass, loggedInUser, error, weather }) {
+    render(_, { user, pass, loggedInUser, error, weather, notif }) {
         return (
             <div class={style.home}>
                 <h1>gRPC PoC</h1>
                 <p style="color: red">{error}</p>
-                {loggedInUser != null && this.state.notif ? <div class={style.notif}>{this.state.notif}asd</div> : null}
                 <p>
                     {loggedInUser == null
                         ? "Not logged in"
@@ -126,11 +125,11 @@ class Home extends Component {
                 <br /> <br />
                 {loggedInUser != null ? (
                     <button class="btn btn-lg btn-success" onClick={this.getWeather}>Get Weather</button>
-                ) : (
-                        <div></div>
-                    )}
-                <br />
-                <p>{weather}</p>
+                ) : null}
+                <br /><br />
+                {loggedInUser != null && notif ? <div class={style.notif}>{notif}asd</div> : null}
+                <br /><br />
+                {weather ? <p class={style.notifInfo}>{weather}</p> : null}
             </div>
         );
     }
